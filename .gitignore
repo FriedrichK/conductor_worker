@@ -1,0 +1,6 @@
+*~
+*.pyc
+.idea/
+venv/
+VERSION
+db.sqlite3

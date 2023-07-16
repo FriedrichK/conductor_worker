@@ -1,0 +1,3 @@
+conductor-python==1.0.71
+python-dotenv==1.0.0
+SQLAlchemy==2.0.19
