@@ -1,3 +1,6 @@
+arrow==1.2.3
 conductor-python==1.0.71
+dacite==1.8.1
 python-dotenv==1.0.0
+requests==2.31.0
 SQLAlchemy==2.0.19

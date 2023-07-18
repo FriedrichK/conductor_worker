@@ -1,5 +1,4 @@
 import os
-from typing import Optional
 
 from dotenv import load_dotenv
 
@@ -19,3 +18,5 @@ with open(version_file_path, "r") as f:
     if not content.isnumeric():
         raise AssertionError(f"version information is not a number: {content}")
     VERSION: int = int(content)
+
+REST_API_URL: str = os.environ.get("REST_API_URL")
