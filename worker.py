@@ -11,6 +11,7 @@ from includes.tasks import (
     create_player_topic_v1,
     prompt_player_interaction_v1,
     set_variables_for_start_player_interactions_v1,
+    update_game_to_show_it_has_failed_v1,
 )
 
 workers = [
@@ -22,6 +23,11 @@ workers = [
     Worker(
         task_definition_name="create_game_in_backend_v1",
         execute_function=create_game_in_backend_v1,
+        poll_interval=1,
+    ),
+    Worker(
+        task_definition_name="update_game_to_show_it_has_failed_v1",
+        execute_function=update_game_to_show_it_has_failed_v1,
         poll_interval=1,
     ),
     Worker(

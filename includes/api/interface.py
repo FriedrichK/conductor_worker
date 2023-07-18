@@ -1,5 +1,6 @@
 import os
 
+import arrow
 import requests
 from dacite import from_dict
 from requests import Response
@@ -28,6 +29,17 @@ def create_game(game_id: str, game_name: str) -> dict:
 def get_game(game_id: str) -> GameSchema:
     url: str = os.path.join(settings.REST_API_URL, "games", game_id)
     response: Response = requests.get(url, json=True)
+    if response.status_code != 200:
+        raise AssertionError(
+            f"unexpected error with code {response.status_code}: {response.content}"
+        )
+    return GameSchema(**response.json())
+
+
+def mark_game_as_failed(game_id: str) -> GameSchema:
+    url: str = os.path.join(settings.REST_API_URL, "games", game_id) + "/"
+    data: dict = {"failed": arrow.utcnow().format()}
+    response: Response = requests.patch(url, data=data, json=True)
     if response.status_code != 200:
         raise AssertionError(
             f"unexpected error with code {response.status_code}: {response.content}"

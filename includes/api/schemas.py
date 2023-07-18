@@ -12,6 +12,7 @@ class GameSchema:
     min_players: int
     max_players: int
     created: str
+    failed: Optional[str]
     started: Optional[str]
 
 

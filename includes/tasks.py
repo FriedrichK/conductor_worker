@@ -11,6 +11,7 @@ from includes.api.interface import (
     get_player_list,
     stop_waiting_to_start_game,
     create_player_topic,
+    mark_game_as_failed,
 )
 from includes.api.schemas import GameSchema, PlayerListSchema, GameTopicSchema
 
@@ -36,6 +37,18 @@ def evaluate_games_starting_conditions_v1(task: Task) -> TaskResult:
 def create_game_in_backend_v1(task: Task) -> TaskResult:
     name: str = task.input_data.get("game_name")
     create_game(game_id=task.workflow_instance_id, game_name=name)
+    task_result = TaskResult(
+        task_id=task.task_id,
+        workflow_instance_id=task.workflow_instance_id,
+        worker_id="your_custom_id",
+    )
+    task_result.status = TaskResultStatus.COMPLETED
+    return task_result
+
+
+def update_game_to_show_it_has_failed_v1(task: Task) -> TaskResult:
+    game_id: str = task.input_data.get("game_id")
+    mark_game_as_failed(game_id=game_id)
     task_result = TaskResult(
         task_id=task.task_id,
         workflow_instance_id=task.workflow_instance_id,
